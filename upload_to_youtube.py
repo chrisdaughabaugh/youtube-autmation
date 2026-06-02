@@ -21,6 +21,19 @@ TOKEN_FILE     = Path("token.json")
 VIDEO_PATH     = Path("output/final_with_subs.mp4")
 THUMBNAIL_PATH = Path("output/thumbnails/01_main.jpg")
 
+
+def _restore_credentials_from_env():
+    """Write credential files from environment variables if they don't exist locally."""
+    token_json = os.environ.get("YOUTUBE_TOKEN_JSON")
+    client_secrets_json = os.environ.get("YOUTUBE_CLIENT_SECRETS")
+    if token_json and not TOKEN_FILE.exists():
+        TOKEN_FILE.write_text(token_json)
+    if client_secrets_json and not CLIENT_SECRETS.exists():
+        CLIENT_SECRETS.write_text(client_secrets_json)
+
+
+_restore_credentials_from_env()
+
 VIDEO_TITLE       = "StoicElderWisdom — Ancient Wisdom for Men"
 VIDEO_DESCRIPTION = (
     "Subscribe to StoicElderWisdom — ancient principles for men who've earned their perspective.\n\n"

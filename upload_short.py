@@ -3,6 +3,7 @@ upload_short.py — StoicElderWisdom
 Uploads output/short.mp4 as a YouTube Short, posts a comment linking to the full video.
 """
 import json
+import os
 import socket
 import sys
 import time as _time
@@ -19,6 +20,18 @@ TOKEN_FILE     = Path("token.json")
 SHORT_PATH     = Path("output/short.mp4")
 META_FILE      = Path("output/video_meta.json")
 SCOPES         = ["https://www.googleapis.com/auth/youtube.force-ssl"]
+
+
+def _restore_credentials_from_env():
+    token_json = os.environ.get("YOUTUBE_TOKEN_JSON")
+    client_secrets_json = os.environ.get("YOUTUBE_CLIENT_SECRETS")
+    if token_json and not TOKEN_FILE.exists():
+        TOKEN_FILE.write_text(token_json)
+    if client_secrets_json and not CLIENT_SECRETS.exists():
+        CLIENT_SECRETS.write_text(client_secrets_json)
+
+
+_restore_credentials_from_env()
 
 
 def get_authenticated_service():
