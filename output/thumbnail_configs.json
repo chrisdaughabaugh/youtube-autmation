@@ -1,0 +1,68 @@
+[
+  {
+    "id": "01_main",
+    "bg_image": "02_man_window_misty_forest.jpg",
+    "top_text": "STOIC ELDER WISDOM",
+    "main_text": "YOUR GIFTS\nFORGOTTEN",
+    "sub_text": "SENECA",
+    "top_color": [
+      201,
+      168,
+      76
+    ],
+    "main_color": [
+      201,
+      168,
+      76
+    ],
+    "sub_color": [
+      200,
+      190,
+      170
+    ]
+  },
+  {
+    "id": "02_alt",
+    "bg_image": "04_lone_figure_autumn_path.jpg",
+    "top_text": "STOIC ELDER WISDOM",
+    "main_text": "THEY DON'T\nSEE IT",
+    "sub_text": "MARCUS AURELIUS",
+    "top_color": [
+      201,
+      168,
+      76
+    ],
+    "main_color": [
+      201,
+      168,
+      76
+    ],
+    "sub_color": [
+      200,
+      190,
+      170
+    ]
+  },
+  {
+    "id": "03_alt",
+    "bg_image": "07_roman_ruins_golden_hour_carving.jpg",
+    "top_text": "STOIC ELDER WISDOM",
+    "main_text": "IT STILL\nCOUNTS",
+    "sub_text": "EPICTETUS",
+    "top_color": [
+      201,
+      168,
+      76
+    ],
+    "main_color": [
+      201,
+      168,
+      76
+    ],
+    "sub_color": [
+      200,
+      190,
+      170
+    ]
+  }
+]
