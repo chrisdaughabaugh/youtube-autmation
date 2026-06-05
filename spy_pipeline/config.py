@@ -21,9 +21,6 @@ def _require(key: str) -> str:
 GROQ_API_KEY = _require("GROQ_API_KEY")
 GROQ_MODEL = os.getenv("GROQ_MODEL", "llama-3.3-70b-versatile")
 
-# TTS
-TTS_VOICE = os.getenv("TTS_VOICE", "en-US-ChristopherNeural")
-
 # Video
 VIDEO_WIDTH = int(os.getenv("VIDEO_WIDTH", "1080"))
 VIDEO_HEIGHT = int(os.getenv("VIDEO_HEIGHT", "1920"))
