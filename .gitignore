@@ -2,3 +2,11 @@
 client_secrets.json
 *.env
 __pycache__/
+*.pyc
+
+# Spy pipeline
+spy_pipeline/.env
+spy_pipeline/output/
+spy_pipeline/venv/
+spy_pipeline/__pycache__/
+spy_pipeline/modules/__pycache__/
