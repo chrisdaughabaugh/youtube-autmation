@@ -2,3 +2,8 @@
 client_secrets.json
 *.env
 __pycache__/
+
+# Generated pipeline outputs — cleaned on every run
+output/
+generated_images/
+generated_clips/
