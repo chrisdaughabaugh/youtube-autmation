@@ -18,15 +18,16 @@ import threading
 from pathlib import Path
 
 SCRIPTS = [
-    ("1/9 — Generating script (AI)",   "generate_script.py"),
-    ("2/9 — Generating images",        "generate_images.py"),
-    ("3/9 — Generating voiceover",     "generate_voiceover.py"),
-    ("4/9 — Assembling video",         "assemble_video.py"),
-    ("5/9 — Generating subtitles",     "generate_subtitles.py"),
-    ("6/9 — Generating Short clip",    "generate_short.py"),
-    ("7/9 — Generating thumbnails",    "generate_thumbnail.py"),
-    ("8/9 — Uploading main video",     "upload_to_youtube.py"),
-    ("9/9 — Uploading Short",          "upload_short.py"),
+    ("1/10 — Generating script (AI)",   "generate_script.py"),
+    ("2/10 — Generating images",        "generate_images.py"),
+    ("3/10 — Animating images (Veo)",   "animate_images.py"),
+    ("4/10 — Generating voiceover",     "generate_voiceover.py"),
+    ("5/10 — Assembling video",         "assemble_video.py"),
+    ("6/10 — Generating subtitles",     "generate_subtitles.py"),
+    ("7/10 — Generating Short clip",    "generate_short.py"),
+    ("8/10 — Generating thumbnails",    "generate_thumbnail.py"),
+    ("9/10 — Uploading main video",     "upload_to_youtube.py"),
+    ("10/10 — Uploading Short",         "upload_short.py"),
 ]
 
 
@@ -63,7 +64,7 @@ def tg(text: str) -> None:
 
 def cleanup() -> None:
     print("Cleaning up previous run...")
-    for d in ["generated_images", "output"]:
+    for d in ["generated_images", "generated_clips", "output"]:
         p = Path(d)
         if p.exists():
             shutil.rmtree(p)
