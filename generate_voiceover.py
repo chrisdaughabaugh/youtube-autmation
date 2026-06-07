@@ -1,13 +1,17 @@
 """
 generate_voiceover.py — StoicElderWisdom
 Deep, warm, unhurried voice for men 45–65.
-Kokoro primary (am_michael), Edge TTS fallback (ChristopherNeural at -15% rate).
+Priority: Kokoro (local) -> Google Cloud TTS -> Edge TTS
 """
 import asyncio
+import base64
+import json
+import os
 import re
 import subprocess
 import sys
 import numpy as np
+import requests
 from pathlib import Path
 
 OUTPUT_DIR = Path("output")
@@ -81,6 +85,68 @@ def wav_to_mp3(wav_path: Path, mp3_path: Path) -> None:
     print(f"  MP3 saved: {mp3_path}")
 
 
+def load_api_key() -> str:
+    key = os.environ.get("GEMINI_API_KEY")
+    if key:
+        return key
+    env = Path(".env")
+    if env.exists():
+        for line in env.read_text().splitlines():
+            if line.startswith("GEMINI_API_KEY="):
+                return line.split("=", 1)[1].strip()
+    return ""
+
+
+def generate_google_tts(text: str, mp3_path: Path) -> bool:
+    """Use Google Cloud TTS via the REST API — same key as Gemini (if billing enabled)."""
+    api_key = load_api_key()
+    if not api_key:
+        return False
+    url = f"https://texttospeech.googleapis.com/v1/text:synthesize?key={api_key}"
+    payload = {
+        "input": {"text": text[:5000]},
+        "voice": {
+            "languageCode": "en-US",
+            "name": "en-US-Neural2-D",   # deep, warm male voice
+            "ssmlGender": "MALE",
+        },
+        "audioConfig": {
+            "audioEncoding": "MP3",
+            "speakingRate": 0.85,
+            "pitch": -3.0,
+        },
+    }
+    try:
+        print("  Google Cloud TTS: en-US-Neural2-D (deep male, 0.85x speed)")
+        resp = requests.post(url, json=payload, timeout=60)
+        if resp.status_code == 403:
+            print("  Google TTS: billing not enabled on this API key — skipping")
+            return False
+        resp.raise_for_status()
+        audio_b64 = resp.json().get("audioContent", "")
+        if not audio_b64:
+            return False
+        mp3_path.write_bytes(base64.b64decode(audio_b64))
+
+        # Script > 5000 chars needs chunking — handle remaining chunks
+        remaining = text[5000:]
+        if remaining:
+            chunks = [remaining[i:i+5000] for i in range(0, len(remaining), 5000)]
+            parts = [mp3_path.read_bytes()]
+            for chunk in chunks:
+                payload["input"]["text"] = chunk
+                r = requests.post(url, json=payload, timeout=60)
+                r.raise_for_status()
+                parts.append(base64.b64decode(r.json().get("audioContent", "")))
+            mp3_path.write_bytes(b"".join(parts))
+
+        print(f"  MP3 saved: {mp3_path}")
+        return True
+    except Exception as e:
+        print(f"  Google TTS failed: {e}")
+        return False
+
+
 async def generate_edge(text: str, mp3_path: Path) -> None:
     import edge_tts
     print(f"  Edge TTS: voice={EDGE_VOICE}, rate={EDGE_RATE}, pitch={EDGE_PITCH}")
@@ -103,6 +169,8 @@ def main():
 
     if generate_kokoro(script, wav_path):
         wav_to_mp3(wav_path, mp3_path)
+    elif generate_google_tts(script, mp3_path):
+        pass
     else:
         print("  Falling back to Edge TTS...")
         asyncio.run(generate_edge(script, mp3_path))

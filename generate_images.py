@@ -127,15 +127,17 @@ def generate_image(label: str, prompt: str, api_key: str) -> None:
         print(f"  Skipping (already exists): {filepath}")
         return
     print(f"Generating: {label}")
-    if generate_image_gemini(label, prompt, api_key):
-        print(f"  Saved (Gemini): {filepath}")
-        time.sleep(3)
-    elif generate_image_pollinations(label, prompt):
-        print(f"  Saved (Pollinations fallback): {filepath}")
-    elif generate_image_huggingface(label, prompt):
-        print(f"  Saved (HuggingFace fallback): {filepath}")
-    else:
-        print(f"  WARNING: all image sources failed for {label} — pipeline will continue")
+    # Retry Gemini up to 3 times with backoff before giving up
+    for attempt in range(1, 4):
+        if generate_image_gemini(label, prompt, api_key):
+            print(f"  Saved (Gemini): {filepath}")
+            time.sleep(3)
+            return
+        if attempt < 3:
+            wait = 30 * attempt
+            print(f"  Gemini image attempt {attempt} failed, retrying in {wait}s...")
+            time.sleep(wait)
+    print(f"  WARNING: Gemini image generation failed for {label} — pipeline will continue")
 
 
 def main():
