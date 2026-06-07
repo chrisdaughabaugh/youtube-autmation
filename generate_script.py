@@ -62,6 +62,27 @@ TOPIC_BANK = [
     "What Epictetus taught men who felt trapped by their own choices",
     "The stoic cure for a restless mind at 3am",
     "Why the second half of life can be the most meaningful",
+    # Round 3 — deep emotional, night-search topics
+    "The father you never got to say goodbye to",
+    "Why you still hear your father's voice when you fail",
+    "What Marcus Aurelius said about dying without regret",
+    "The stoic answer to watching your body slow down",
+    "When the friendship you counted on quietly disappeared",
+    "How to stop waiting for an apology that will never come",
+    "What Seneca said to the man who felt he had no time left",
+    "The quiet dignity of a life nobody noticed",
+    "Why men over 60 stop talking — and what it costs them",
+    "How to grieve the man you thought you would become",
+    "What Epictetus said about pain you cannot fix",
+    "The weight of a grudge you've carried for twenty years",
+    "When your children became strangers — the stoic answer",
+    "How Marcus Aurelius dealt with feeling useless",
+    "What to do with all the years you can't get back",
+    "The stoic way to face a body that is slowing down",
+    "Why men who sacrificed everything feel so empty now",
+    "What Seneca said about men who outlived their purpose",
+    "The moment you realized your best years were behind you",
+    "How to find stillness when everything around you has changed",
 ]
 
 
@@ -234,11 +255,12 @@ TITLE RULES — generate exactly 3 options that a real man would click at 11pm:
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 THUMBNAIL RULES:
 - Dark warm background: deep charcoal, navy, or forest green
-- Gold accent: #C9A84C
 - MAX 4 words text overlay — must create a CURIOSITY GAP or hit a nerve, not label a theme
   Think: what 4 words would make a 55-year-old man stop scrolling at midnight?
-  Good: "YOU GAVE\nENOUGH", "STOP\nWAITING", "IT STILL\nCOUNTS", "NOT TOO\nLATE", "YOU WERE\nRIGHT", "THEY WERE\nWRONG"
-  Bad: "STOIC WISDOM", "AGING WELL", "INNER PEACE", "LIFE PURPOSE", "IT IS PEACE"
+  Good examples: "YOU GAVE\nENOUGH", "STOP\nWAITING", "IT STILL\nCOUNTS", "NOT TOO\nLATE", "YOU WERE\nRIGHT", "THEY WERE\nWRONG", "IT WAS\nENOUGH", "YOU\nREMAIN", "STILL\nHERE", "HELD\nLONG ENOUGH"
+  BANNED thumbnail words — NEVER use any of these: SURVIVAL, CRUSH, SCROLL, HUSTLE, GRIND, HACK, TIPS, RULES, GUIDE, MASTER, WIN, BEAT, SECRETS, MODERN, DIGITAL, BLUEPRINT, FORMULA, SYSTEM, STRATEGY
+  Bad: "STOIC WISDOM", "AGING WELL", "INNER PEACE", "LIFE PURPOSE", "IT IS PEACE", "MARRIAGE SURVIVAL", "CRUSH THE SCROLL"
+  The text must feel like what a man quietly knows to be true — not advice, not a label, not a command.
   Format: use \n to split across 2 lines. 2 words per line reads biggest at thumbnail size.
 - Focal image: older man (silhouette or from behind), ancient bust, single candle, open weathered book, fog over still water
 - Feel: like the cover of a book you'd trust — not a YouTube thumbnail
@@ -332,11 +354,11 @@ Return ONLY valid JSON — no markdown, no text outside the JSON:
       "main_text": "HOOK TEXT\nHERE",
       "sub_text": "MARCUS AURELIUS",
       "top_color": [201, 168, 76],
-      "main_color": [201, 168, 76],
-      "sub_color": [200, 190, 170]
+      "main_color": [255, 255, 255],
+      "sub_color": [201, 168, 76]
     }},
-    {{"id": "02_alt", "bg_image": "05_descriptive_name.jpg", "top_text": "STOIC ELDER WISDOM", "main_text": "HOOK TEXT\nHERE", "sub_text": "SENECA", "top_color": [201,168,76], "main_color": [201,168,76], "sub_color": [200,190,170]}},
-    {{"id": "03_alt", "bg_image": "12_descriptive_name.jpg", "top_text": "STOIC ELDER WISDOM", "main_text": "HOOK TEXT\nHERE", "sub_text": "EPICTETUS", "top_color": [201,168,76], "main_color": [201,168,76], "sub_color": [200,190,170]}}
+    {{"id": "02_alt", "bg_image": "05_descriptive_name.jpg", "top_text": "STOIC ELDER WISDOM", "main_text": "HOOK TEXT\nHERE", "sub_text": "SENECA", "top_color": [201,168,76], "main_color": [255,255,255], "sub_color": [201,168,76]}},
+    {{"id": "03_alt", "bg_image": "12_descriptive_name.jpg", "top_text": "STOIC ELDER WISDOM", "main_text": "HOOK TEXT\nHERE", "sub_text": "EPICTETUS", "top_color": [201,168,76], "main_color": [255,255,255], "sub_color": [201,168,76]}}
   ],
   "youtube": {{
     "title": "The best title from your 3 options above — the one a real man clicks at 11pm",
