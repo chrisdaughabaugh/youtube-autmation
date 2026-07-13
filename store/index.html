@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Apex Cards — premium TCG singles, sealed product, and graded sports cards. Pokémon, Magic, One Piece, and PSA-graded rookies. Authenticated, fast shipping." />
+  <title>Apex Cards — Premium TCG &amp; Sports Trading Cards</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%236d28d9'/%3E%3Cpath d='M9 8h9a5 5 0 0 1 0 10h-4v6H9z' fill='white'/%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <!-- Announcement bar -->
+  <div class="announce">
+    <span>Free insured shipping on orders over <strong>$150</strong> · Every card authenticated before it ships</span>
+  </div>
+
+  <!-- Header -->
+  <header class="site-header" id="siteHeader">
+    <div class="container header-inner">
+      <a href="#home" class="brand" aria-label="Apex Cards home">
+        <span class="brand-mark">A</span>
+        <span class="brand-text">Apex<span>Cards</span></span>
+      </a>
+
+      <nav class="nav" aria-label="Primary">
+        <a href="#shop" data-filter-link="all">Shop All</a>
+        <a href="#shop" data-filter-link="tcg">TCG</a>
+        <a href="#shop" data-filter-link="sports">Sports</a>
+        <a href="#shop" data-filter-link="sealed">Sealed</a>
+        <a href="#about">About</a>
+      </nav>
+
+      <div class="header-actions">
+        <button class="icon-btn search-toggle" id="searchToggle" aria-label="Search">
+          <svg viewBox="0 0 24 24" width="20" height="20"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M11 4a7 7 0 1 0 0 14 7 7 0 0 0 0-14zm5 12 4 4"/></svg>
+        </button>
+        <button class="icon-btn cart-toggle" id="cartToggle" aria-label="Open cart">
+          <svg viewBox="0 0 24 24" width="21" height="21"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M6 6h15l-1.5 9h-12L5 3H2"/><circle cx="9" cy="20" r="1.6" fill="currentColor"/><circle cx="17" cy="20" r="1.6" fill="currentColor"/></svg>
+          <span class="cart-count" id="cartCount">0</span>
+        </button>
+        <button class="icon-btn menu-toggle" id="menuToggle" aria-label="Menu">
+          <svg viewBox="0 0 24 24" width="22" height="22"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M3 6h18M3 12h18M3 18h18"/></svg>
+        </button>
+      </div>
+    </div>
+    <div class="search-bar" id="searchBar">
+      <div class="container">
+        <input type="search" id="searchInput" placeholder="Search Charizard, Jordan rookie, sealed booster box…" aria-label="Search cards" />
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero" id="home">
+    <div class="hero-glow"></div>
+    <div class="container hero-inner">
+      <div class="hero-copy">
+        <span class="eyebrow">Authenticated · Graded · Trusted</span>
+        <h1>Grails for collectors who take the hobby seriously.</h1>
+        <p class="lead">From chase Pokémon holos to PSA&nbsp;10 rookie cards, every piece in the vault is verified, condition-checked, and shipped fully insured.</p>
+        <div class="hero-cta">
+          <a href="#shop" class="btn btn-primary">Shop the vault</a>
+          <a href="#about" class="btn btn-ghost">Sell your cards</a>
+        </div>
+        <div class="trust-row">
+          <div><strong>12k+</strong><span>Cards sold</span></div>
+          <div><strong>100%</strong><span>Authenticated</span></div>
+          <div><strong>4.9★</strong><span>1,800 reviews</span></div>
+        </div>
+      </div>
+      <div class="hero-cards" aria-hidden="true">
+        <div class="float-card fc-1"></div>
+        <div class="float-card fc-2"></div>
+        <div class="float-card fc-3"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Category tiles -->
+  <section class="categories container">
+    <button class="cat-tile" data-filter-link="tcg">
+      <span class="cat-emoji">🐉</span>
+      <span class="cat-name">Trading Card Games</span>
+      <span class="cat-sub">Pokémon · Magic · One Piece · Lorcana</span>
+    </button>
+    <button class="cat-tile" data-filter-link="sports">
+      <span class="cat-emoji">🏀</span>
+      <span class="cat-name">Sports Cards</span>
+      <span class="cat-sub">NBA · NFL · MLB · Soccer</span>
+    </button>
+    <button class="cat-tile" data-filter-link="sealed">
+      <span class="cat-emoji">📦</span>
+      <span class="cat-name">Sealed Product</span>
+      <span class="cat-sub">Booster boxes · ETBs · Cases</span>
+    </button>
+    <button class="cat-tile" data-filter-link="graded">
+      <span class="cat-emoji">🏆</span>
+      <span class="cat-name">Graded Slabs</span>
+      <span class="cat-sub">PSA · BGS · CGC certified</span>
+    </button>
+  </section>
+
+  <!-- Shop -->
+  <section class="shop" id="shop">
+    <div class="container">
+      <div class="shop-head">
+        <div>
+          <h2>The Vault</h2>
+          <p class="muted" id="resultCount">Loading inventory…</p>
+        </div>
+        <div class="shop-controls">
+          <div class="filters" id="filters">
+            <button class="chip active" data-filter="all">All</button>
+            <button class="chip" data-filter="tcg">TCG</button>
+            <button class="chip" data-filter="sports">Sports</button>
+            <button class="chip" data-filter="sealed">Sealed</button>
+            <button class="chip" data-filter="graded">Graded</button>
+          </div>
+          <select id="sortSelect" class="sort-select" aria-label="Sort products">
+            <option value="featured">Featured</option>
+            <option value="price-asc">Price: Low to High</option>
+            <option value="price-desc">Price: High to Low</option>
+            <option value="name">Name: A–Z</option>
+          </select>
+        </div>
+      </div>
+      <div class="product-grid" id="productGrid"></div>
+      <p class="empty-state" id="emptyState" hidden>No cards match your search. Try clearing filters.</p>
+    </div>
+  </section>
+
+  <!-- Value props -->
+  <section class="values">
+    <div class="container values-grid">
+      <div class="value">
+        <span class="value-ico">🛡️</span>
+        <h3>Authenticity guaranteed</h3>
+        <p>Every card is inspected and verified in-house. Graded slabs are cross-checked against the grader's cert database.</p>
+      </div>
+      <div class="value">
+        <span class="value-ico">🚚</span>
+        <h3>Insured, tracked shipping</h3>
+        <p>Sleeved, toploaded, and shipped in rigid mailers. Full insurance on every order, free over $150.</p>
+      </div>
+      <div class="value">
+        <span class="value-ico">↩️</span>
+        <h3>7-day returns</h3>
+        <p>Not what you expected? Return any ungraded single within 7 days for a full refund. No hassle.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- About / Sell -->
+  <section class="about" id="about">
+    <div class="container about-inner">
+      <div class="about-copy">
+        <span class="eyebrow">About Apex Cards</span>
+        <h2>Built by collectors, for collectors.</h2>
+        <p>We started Apex Cards out of a card shop in 2019 with one rule: sell the cards we'd want to buy ourselves. That means honest grading, real photos, and prices that respect the hobby.</p>
+        <p>Sitting on a collection? We buy singles, sealed product, and full estates — cash offers within 24 hours and free insured shipping labels for your cards.</p>
+        <a href="#" class="btn btn-primary" id="sellBtn">Get a cash offer</a>
+      </div>
+      <div class="about-stats">
+        <div class="stat-card"><strong>2019</strong><span>Founded</span></div>
+        <div class="stat-card"><strong>50k+</strong><span>Cards in inventory</span></div>
+        <div class="stat-card"><strong>24h</strong><span>Avg. dispatch</span></div>
+        <div class="stat-card"><strong>4.9★</strong><span>Verified rating</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Newsletter -->
+  <section class="newsletter">
+    <div class="container news-inner">
+      <div>
+        <h2>Never miss a drop.</h2>
+        <p class="muted">New singles, restocks, and sealed releases hit fast. Get early access.</p>
+      </div>
+      <form class="news-form" id="newsForm">
+        <input type="email" required placeholder="you@email.com" aria-label="Email address" />
+        <button class="btn btn-primary" type="submit">Subscribe</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <a href="#home" class="brand">
+          <span class="brand-mark">A</span>
+          <span class="brand-text">Apex<span>Cards</span></span>
+        </a>
+        <p class="muted">Premium TCG &amp; sports trading cards. Authenticated, graded, and shipped with care.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Shop</h4>
+        <a href="#shop" data-filter-link="tcg">Trading Card Games</a>
+        <a href="#shop" data-filter-link="sports">Sports Cards</a>
+        <a href="#shop" data-filter-link="sealed">Sealed Product</a>
+        <a href="#shop" data-filter-link="graded">Graded Slabs</a>
+      </div>
+      <div class="footer-col">
+        <h4>Support</h4>
+        <a href="#">Shipping &amp; returns</a>
+        <a href="#">Authentication</a>
+        <a href="#">Track your order</a>
+        <a href="#">Contact us</a>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <a href="#about">About us</a>
+        <a href="#about">Sell your cards</a>
+        <a href="#">Grading service</a>
+        <a href="#">Careers</a>
+      </div>
+    </div>
+    <div class="container footer-bottom">
+      <span>© <span id="year"></span> Apex Cards. All rights reserved.</span>
+      <span class="pay-badges">Visa · Mastercard · Amex · Apple Pay · PayPal</span>
+    </div>
+  </footer>
+
+  <!-- Cart drawer -->
+  <div class="drawer-overlay" id="drawerOverlay"></div>
+  <aside class="cart-drawer" id="cartDrawer" aria-label="Shopping cart">
+    <div class="cart-header">
+      <h3>Your cart</h3>
+      <button class="icon-btn" id="cartClose" aria-label="Close cart">
+        <svg viewBox="0 0 24 24" width="22" height="22"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+    </div>
+    <div class="cart-body" id="cartBody"></div>
+    <div class="cart-footer" id="cartFooter">
+      <div class="cart-subtotal">
+        <span>Subtotal</span>
+        <strong id="cartSubtotal">$0.00</strong>
+      </div>
+      <p class="ship-note" id="shipNote"></p>
+      <button class="btn btn-primary btn-block" id="checkoutBtn">Checkout</button>
+      <p class="secure-note">🔒 Secure checkout · Encrypted payments</p>
+    </div>
+  </aside>
+
+  <!-- Toast -->
+  <div class="toast" id="toast"></div>
+
+  <script src="js/products.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
