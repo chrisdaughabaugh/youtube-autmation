@@ -183,6 +183,100 @@
     );
   }
 
+  /* ---------- Product modal ---------- */
+  let modalId = null;
+  let modalQty = 1;
+
+  function descFor(p) {
+    const map = {
+      tcg: `A sought-after ${p.set} chase card in ${p.meta.split("·").pop().trim()} condition. Pack-fresh, sleeved on arrival, and inspected under bright light for centering, edges, and surface before it ever leaves the vault.`,
+      sports: `A key ${p.set} card featuring one of the hobby's most collected names. Carefully condition-checked and stored in a protective holder — a strong addition to any PC or investment portfolio.`,
+      sealed: `Factory-sealed ${p.set} product, sourced direct and stored in a climate-controlled vault. Ideal for ripping, collecting, or holding — weight and shrink-wrap verified authentic.`,
+      graded: `Professionally graded and authenticated in a tamper-evident slab. The certification number is verified against the grader's database, so you know exactly what you're getting.`
+    };
+    return map[p.category] || "";
+  }
+
+  function specsFor(p) {
+    const rows = [["Set / Release", p.set], ["Category", p.tag]];
+    if (p.grade) rows.push(["Grade", p.grade]);
+    else rows.push(["Condition", p.meta.split("·").pop().trim()]);
+    rows.push(["Availability", p.stock > 0 ? `In stock (${p.stock})` : "Sold out"]);
+    rows.push(["Ships", "Within 24h · fully insured"]);
+    return rows;
+  }
+
+  function renderModal() {
+    const p = byId(modalId);
+    if (!p) return;
+    const soldOut = p.stock <= 0;
+    const maxQ = Math.max(1, p.stock);
+    modalQty = Math.min(modalQty, maxQ);
+    const compare = p.compare ? `<span class="strike">${money(p.compare)}</span>` : "";
+    const grade = p.grade ? `<span class="badge grade" style="position:static;display:inline-block">${p.grade}</span>` : "";
+    $("#modalInner").innerHTML = `
+      <div class="modal-media">
+        <div class="modal-art" style="background:${p.art}"></div>
+        <div class="modal-frame" style="background:${p.art}">
+          <span class="cf-name">${p.cardName}</span>
+          <span class="cf-set">${p.cardSet}</span>
+        </div>
+      </div>
+      <div class="modal-info">
+        <span class="card-cat">${p.set}</span>
+        <h2>${p.name}</h2>
+        <div class="modal-price"><span class="price">${compare}${money(p.price)}</span> ${grade}</div>
+        <p class="modal-desc">${descFor(p)}</p>
+        <ul class="spec-list">
+          ${specsFor(p).map(([k, v]) => `<li><span>${k}</span><span>${v}</span></li>`).join("")}
+        </ul>
+        <div class="modal-buy">
+          <div class="qty">
+            <button id="mQtyDec" aria-label="Decrease">−</button>
+            <span id="mQty">${modalQty}</span>
+            <button id="mQtyInc" aria-label="Increase">+</button>
+          </div>
+          <button class="btn btn-primary" id="mAdd" ${soldOut ? "disabled" : ""}>
+            ${soldOut ? "Sold out" : "Add to cart"}
+          </button>
+        </div>
+        <div class="modal-assure">
+          <span>🛡️ Authenticity guaranteed on every card</span>
+          <span>🚚 Insured, tracked shipping — free over $150</span>
+          <span>↩️ 7-day returns on ungraded singles</span>
+        </div>
+      </div>`;
+
+    $("#mQtyDec").addEventListener("click", () => { modalQty = Math.max(1, modalQty - 1); $("#mQty").textContent = modalQty; });
+    $("#mQtyInc").addEventListener("click", () => {
+      if (modalQty >= maxQ) { toast(`Only ${p.stock} in stock`); return; }
+      modalQty++; $("#mQty").textContent = modalQty;
+    });
+    const addBtn = $("#mAdd");
+    if (addBtn && !soldOut) addBtn.addEventListener("click", () => {
+      const target = Math.min((cart[p.id] || 0) + modalQty, p.stock);
+      setQty(p.id, target);
+      toast(`${modalQty}× ${p.cardName} added to cart`);
+      bumpCartIcon();
+      closeModal();
+      openCart();
+    });
+  }
+
+  function openModal(id) {
+    modalId = id; modalQty = 1;
+    renderModal();
+    $("#productModal").classList.add("open");
+    $("#modalOverlay").classList.add("open");
+    document.body.style.overflow = "hidden";
+  }
+  function closeModal() {
+    $("#productModal").classList.remove("open");
+    $("#modalOverlay").classList.remove("open");
+    if (!drawer.classList.contains("open")) document.body.style.overflow = "";
+    modalId = null;
+  }
+
   /* ---------- Drawer ---------- */
   const drawer = $("#cartDrawer");
   const overlay = $("#drawerOverlay");
@@ -235,8 +329,15 @@
         const id = wish.dataset.wish;
         if (wishlist.has(id)) wishlist.delete(id); else { wishlist.add(id); toast("Saved to wishlist"); }
         saveWishlist(); renderProducts();
+        return;
       }
+      const card = e.target.closest(".card");
+      if (card) openModal(card.dataset.id);
     });
+
+    // Modal close
+    $("#modalClose").addEventListener("click", closeModal);
+    $("#modalOverlay").addEventListener("click", closeModal);
 
     // Cart drawer controls
     $("#cartBody").addEventListener("click", (e) => {
@@ -252,7 +353,7 @@
     $("#cartToggle").addEventListener("click", openCart);
     $("#cartClose").addEventListener("click", closeCart);
     overlay.addEventListener("click", () => { closeCart(); closeMenu(); });
-    document.addEventListener("keydown", (e) => { if (e.key === "Escape") { closeCart(); closeSearch(); } });
+    document.addEventListener("keydown", (e) => { if (e.key === "Escape") { closeCart(); closeSearch(); closeModal(); } });
 
     // Checkout (demo)
     $("#checkoutBtn").addEventListener("click", () => {
